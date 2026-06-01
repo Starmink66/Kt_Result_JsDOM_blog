@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чемоданное настроение</title>
+    <style>
+        ::selection{
+            background-color: rgb(1, 244, 123) ;
+            color: white;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background: linear-gradient(rgb(210, 241, 225), rgb(121, 255, 186));
+            background-repeat: repeat;
+            background-size: auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .site-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+        }
+        header{
+            background-color: rgb(181, 249, 214); 
+            border: 5px solid rgb(18, 58, 38);
+            max-width: 100%;
+            border-radius: 20px;
+            display: flex;
+            height: 80px;
+            padding: 0 5%;
+            margin: 10px;
+            top: 5px;
+            right: 5px;
+            left: 5px;
+            transition: all 0.3s ease;
+        }
+        .Logo{
+            padding-top: 20px;
+            font-weight: bold;
+            font-size: 2em;
+            color: white;
+            font-family:'Courier New', Courier, monospace;
+        }
+        .container1{
+            padding-left: 50%;
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            gap: 10%;
+        }
+        .home, .news, .author, .blog, .profile {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            z-index: 9;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+        .home:hover, .news:hover, .author:hover, .blog:hover, .profile:hover {
+            color: rgb(1, 244, 123) ;
+        }
+        .white{
+            color: white;
+            font-family:'Courier New', Courier, monospace;
+        }
+        .black{
+            color: black;
+            font-family:'Courier New', Courier, monospace;
+        }
+        .grey{
+            color: rgb(85, 85, 85);
+            font-family:'Courier New', Courier, monospace;
+        }
+        .main-layout {
+            display: grid;
+            grid-template-columns: 200px 1000px 250px;
+            flex: 1;
+        }
+        .sidebar {
+            background-color: rgb(226, 255, 240);
+            border-radius: 1.25rem; 
+            padding: 20px;
+            gap:5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+        }
+        .nav {
+            margin-bottom: 20px;
+        }
+        .nav-header {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--gray-500);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .nav-list {
+            list-style: none;
+        }
+        .nav-list li{
+            display: block;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgb(67, 67, 67);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        .nav-list a{
+            color:rgb(82, 124, 50)
+        }
+        .nav-list a:hover{
+            color:rgb(229, 229, 229)
+        }
+        .nav-list li:hover {
+            background: rgba(82, 124, 50, 0.649);
+            color: rgb(61, 96, 34);
+            border-left-color: rgb(133, 195, 87);
+        }
+        .nav-list li--active {
+            background: rgb(185, 233, 148);
+            color: rgb(61, 96, 34);
+            font-weight: 700;
+            border-left-color: rgb(82, 124, 50);
+        }
+        .popular-authors {
+            margin-bottom: 20px;
+        }
+        .authors-list {
+            list-style: none;
+        }
+        .author-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgb(218, 218, 217);
+        }
+        .author-item-avatarka {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .author-item-name {
+            font-size: 13px;
+            color: rgb(75, 75, 75);
+            font-weight: 500;
+        }
+        .content-main {
+            flex: 1;
+            min-width: 0;
+            border-radius: 1.25rem;
+            padding: 1.8rem;
+            gap: 25px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgb(18, 58, 38);
+        }
+        .big-container{
+            max-width: 100%;
+            border-radius: 20px;
+            background-color: rgb(29, 29, 29);
+            display: flex;
+            max-height: 500px;
+            padding:80px;
+            gap: 50px;
+            margin-top: 80px;
+        }
+        .mini-tire, .grey-tire{
+            width: 50px;
+            height: 3px;
+            background-color: rgb(1, 244, 123);
+            transition: transform 0.6s ease;
+            transform-origin: left center;
+        }
+        .grey-tire{
+            background-color: dimgray;
+        }
+        .booking:hover .mini-tire, .links:hover .mini-tire, .latest:hover .mini-tire, .touch:hover  .mini-tire{
+            transform:scale(1.2, 1)
+        }
+        .booking{
+            gap: 20px;
+            width: 300px;
+        }
+        .home-footer:hover, .news-footer:hover, .about-footer:hover, .blog-footer:hover, .contact-footer:hover, .food:hover, .travel:hover{
+            color:rgb(1, 244, 123);
+        }
+        .food, .travel{
+            font-size: 1.5em;
+            font-weight: bold;
+            max-width: 400px;
+        }
+        .data-footer{
+            font-weight: lighter;
+        }
+        .touch{
+            width: 300px;
+            margin-left: 80px;
+        }
+        .email-container{
+            display: flex;
+            flex-direction: column;
+            width: 220px;
+            max-height: 100px ;
+            margin-top: 10px;
+            gap: 15px;
+        }
+        .hot-key{
+            border: 1px solid rgb(235, 235, 235);
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .hot-key:hover{
+            color: rgb(1, 244, 123)
+        }
+        .blog-p{
+            border: 3px solid rgb(18, 58, 38);
+            border-radius: 20px;
+            text-align: center;
+            font-size: 5em;
+            font-weight: bolder;
+            letter-spacing: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .blog-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .mouse-highlight{
+            position:fixed;
+            box-shadow:  0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: rgb(164, 208, 164);
+            transform: translateY(-2px);
+            z-index: 9999;
+        } 
+        .blog-card-rubric {
+            display: inline-block;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .blog-card-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: rgb(30, 30, 30);
+            margin-bottom: 8px;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+        }
+        .blog-card-text {
+            font-size: 14px;
+            color: rgb(79, 79, 79);
+            line-height: 1.6;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .blog-card-comment {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .blog-card-author {
+            font-size: 12px;
+            color:rgb(148, 148, 148);
+            font-weight: 600;
+        }
+        .blog-card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .blog-card-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            background: rgb(248, 248, 248);
+            border-radius: 12px;
+            color: rgb(79, 79, 79);
+        }
+        .blog-card-comments-count {
+            font-size: 12px;
+            color: rgb(69, 110, 70);
+            font-weight: 600;
+            margin-left: auto;
+        }
+        .blog-card-image {
+            width: 100%;
+            height: 600px;
+            border-radius:6px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+        .blog-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .blog-card:hover .blog-card-image img {
+            transform: scale(1.03);
+        }
+        .load-more {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: white;
+            border: 2px solid rgb(193, 192, 192);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgb(79, 79, 79);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .load-more:hover {
+            border-color: rgb(18, 58, 38);
+            color: rgb(40, 87, 41);
+            background: rgb(243, 255, 243);
+        }
+        .rek-header {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgb(148, 148, 148);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .rek-container {
+            min-height: 200px;
+            max-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .rek-block {
+            background: rgb(243, 255, 243);
+            border: 1px solid rgb(226, 227, 226);
+            border-radius: 10px;
+            padding: 14px;
+            transition: all 0.2s ease;
+        }
+        .rek-block:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+            border-color: rgb(164, 208, 164);
+        }
+        .rek-block-name {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgb(69, 110, 70);
+            margin-bottom: 6px;
+        }
+        .rek-block-title {
+            font-size: 14px;
+            font-weight: 700;
+            color:rgb(40, 87, 41);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .rek-block-text {
+            font-size: 12px;
+            color: rgb(40, 87, 41);
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .rek-block-footer {
+            font-size: 11px;
+            font-style: italic;
+            color:rgb(69, 110, 70);
+            margin-bottom: 10px;
+        }
+        .rek-block-button {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgb(69, 110, 70);
+            color: rgb(243, 255, 243);
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .rek-block-button:hover {
+            background: rgb(40, 87, 41);
+        }
+        .blog-button{
+            max-width: 200px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            padding: 10px 20px;
+            background: rgb(40, 87, 41);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .okno-container {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            z-index: 1000;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
+        .okno-container.active {
+            display: flex;
+        }
+        .okno {
+            background: white;
+            border-radius: 14px;
+            max-width: 750px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1)
+        }
+
+        .okno-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgb(248, 248, 248);
+            font-size: 20px;
+            color: rgb(79, 79, 79);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .okno-close:hover {
+            background: rgb(186, 10, 10);
+            color: white;
+        }
+        .okno-content {
+            margin-bottom: 24px;
+        }
+        .okno-image{
+            aspect-ratio: 4/3;
+            border-radius:6px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+        .okno-image img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .okno-rubric {
+            display: inline-block;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+        .okno-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: rgb(30, 30, 30);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .okno-author {
+            font-size: 13px;
+            color: rgb(148, 148, 148);
+            margin-bottom: 20px;
+        }
+        .okno-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgb(30, 30, 30);
+        }
+        .okno-comment {
+            border-top: 1px solid rgb(235, 235, 235);
+            padding-top: 20px;
+        }
+        .okno-comment-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: rgb(30, 30, 30);
+            margin-bottom: 16px;
+        }
+        .comment {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgb(235, 235, 235);
+        }
+        .comment-avatar img{
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        .comment-body {
+            flex: 1;
+            min-width: 0;
+        }
+        .comment-nickname {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgb(30, 30, 30);
+            margin-bottom: 4px;
+        }
+        .comment-text {
+            font-size: 14px;
+            color:rgb(79, 79, 79);
+            line-height: 1.5;
+        }
+        .comment-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .comment-form-start {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 45px;
+        }
+        .comment-form-avatar img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        .comment-form-nickname {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgb(30, 30, 30);
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .comment-form-input-container {
+            flex: 1;
+            display: flex;
+            gap: 8px;
+        }
+        .comment-form-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid rgb(243, 255, 243);
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .comment-form-input:focus {
+            border-color: rgb(212, 239, 212);
+        }
+        .comment-form-button {
+            padding: 10px 18px;
+            background: rgb(212, 239, 212);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+        }
+        .comment-form-button:hover {
+            background: rgb(164, 208, 164);
+        }
+        .comment-form-button:active {
+            transform: scale(0.96);
+        }
+        .red{
+            background-color: rgb(185, 57, 57);
+        }
+        .blue{
+            background-color: rgb(73, 156, 233);
+        }
+        .green{
+            background-color: rgb(45, 210, 67);
+        }
+        .orange{
+            background-color: rgb(227, 165, 22);
+        }
+        .purple{
+            background-color: rgb(177, 29, 207);
+        }
+    </style>
+</head>
+<body>
+    <header>
+            <img class="Logo" src="logo1.png" alt="Логотип" widht="50px" height="50px"/>
+            <div class="Logo">Фэйковый мир</div>
+            <div class="container1" id="container1">
+                <div class="home black" id="home">Главная</div>
+                <div class="news black" id="news">Новости</div>
+                <div class="author black" id="author">Авторы</div>
+                <div class="blog black" id="blog">Блог</div>
+                <div class="profile black" id="profile">Профиль</div>
+            </div>
+        </header>
+    <div class="site-wrapper">
+        <div class="main-layout">
+            <aside class="sidebar" >
+                <nav class="nav">
+                    <h3 class="nav-header">Рубрики</h3>
+                    <ul class="nav-list">
+                        <li><a href="#" data-filter="all">Все секретики</a></li>
+                        <li><a href="#" data-filter="exclusive">Закулисье</a></li>
+                        <li><a href="#" data-filter="gastrogid">Гастрогид</a></li>
+                        <li><a href="#" data-filter="route">Маршруты</a></li>
+                    </ul>
+                </nav>
+                <div class="popular-authors">
+                    <h3 class="nav-header">Популярные авторы</h3>
+                    <ul class="authors-list">
+                        <li class="author-item">
+                        <span class="author-item-avatarka blue">ИБ</span>
+                        <span class="author-item-name">Иван Бездомный</span>
+                        </li>
+                        <li class="author-item">
+                        <span class="author-item-avatarka red"">НБ</span>
+                        <span class="author-item-name">Нелли Блай</span>
+                        </li>
+                        <li class="author-item">
+                        <span class="author-item-avatarka green" ">ДД</span>
+                        <span class="author-item-name">Джоан Дидион</span>
+                        </li>
+                        <li class="author-item">
+                        <span class="author-item-avatarka purple">МГ</span>
+                        <span class="author-item-name">Марта Геллхорн</span>
+                        </li>
+                        <li class="author-item">
+                        <span class="author-item-avatarka orange">ТС</span>
+                        <span class="author-item-name">Том Стоппард</span>
+                        </li>
+                    </ul>
+            </div>
+            <button class="blog-button" id='blog-button'>Рассказать нам вашу историю</button>
+            </aside>
+            <main class="content-main">
+                <h2 class="blog-p black">Истории из чемодана</h2>
+                <div class="blog-container" id="blog-container">
+
+                </div>
+                <button class="load-more" id="load-more" style="display: none;">
+                    Загрузить ещё
+                </button>
+            </main>
+            <aside class="sidebar">
+                <h3 class="rek-header">Реклама</h3>
+                <div class="rek-container" id="rek-container">
+
+                </div>
+            </aside>
+            <div class="okno-container" id="okno-container">
+            <div class="okno" id="okno">
+                <button class="okno-close" id="okno-close">X</button>
+                <div class="okno-content" id="okno-content">
+                </div>
+            <div class="okno-comment" id="okno-comment">
+            </div>
+        </div>
+        </div>
+    </div>
+    <footer>
+            <div class="big-container white" id="big-container">
+                <div class="booking">Адрес
+                    <div class="mini-tire"></div>
+                    <p class="text6">Москва, проспект Мира, 119, стр. 332</p>
+                    <p class="text6">Email: hihi@example.com
+                        www.hihi.company</p>
+                </div>
+                <div class="links"> Ссылки
+                    <div class="mini-tire"></div>
+                    <p class="home-footer">Главная</p>
+                    <p class="news-footer">Новости</p>
+                    <p class="about-footer">О нас</p>
+                    <p class="blog-footer">Блог</p>
+                    <p class="contact-footer">Контакты</p>
+                </div>
+                <div class="latest"> Последнее в блоге
+                    <div class="mini-tire"></div>
+                    <p class="food">Второй завтрак в пряничном домике: гид по съедобной недвижимости.</p>
+                    <p class="data-footer">Май 30,2026</p>
+                    <div class="grey-tire"></div>
+                    <p class="travel">По следам Фогга: я повторила кругосветку за 72 дня и нашла лучший завтрак в Бомбее.</p>
+                    <p class="data-footer"> Май 29,2026</p>
+                </div>
+                <div class="touch"> Авторизоваться
+                    <div class="mini-tire"></div>
+                    <div class="email-container">
+                        <label for="email">Ваш email для связи</label>
+                        <input 
+                            class="email-input"
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="vash.email@example.com"
+                        >
+                        <p class="hot-key white">Нажмите Enter для отправки почты</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const blogArray = [
+                { 
+                    id:1,
+                    rubric: 'exclusive',
+                    rubricRu: 'Закулисье',
+                    image: 'blog1.png',
+                    imageAlt: 'Подъезд', 
+                    title: 'Как я сутки дежурил у «нехорошей квартиры»', 
+                    text: 'Читатели знают меня по скандальным репортажам, но этот случай достоин отдельного поста. Редакция поручила выяснить, что происходит в доме №50 на Садовой после того самого бала. Я, наивный, взял термос, бутерброды и засел в парадной напротив. Первые два часа — тишина. Потом из квартиры вышел субъект в клетчатом пиджаке и треснувшем пенсне. Он галантно поклонился консьержке, которая тут же исчезла в воздухе вместе со стулом. Я протёр глаза. Дальше — хуже. Огромный чёрный кот вальяжно вышел на лестничную клетку, закурил папиросу и уставился прямо на меня. «Подслушиваем, молодой человек?» — спросил он бархатным басом. Я выронил термос. Кот хмыкнул и скрылся за дверью.<br> Милиция приехала через пятнадцать минут. Меня допрашивали как свидетеля, но что я мог сказать? «Товарищ следователь, тут кот курит, а бабушка дематериализовалась». В участке посоветовали меньше пить и отпустили. Но я-то знаю: с этим домом что-то нечисто. Завтра возвращаюсь с фотокамерой.',
+                    author: 'Иван Бездомный' ,
+                    tags:["Закулисье", "Москва", "Мистика"],
+                    comments: [
+                        { 
+                            nickname: 'Red_Haired_Muse', 
+                            text: 'О, термос и бутерброды — это очень по-журналистски! Я бы добавила малиновый лимонад и красивый блокнот для заметок. Романтика!', 
+                            avatar: 'profile.png' },
+                        { 
+                            nickname: 'Tea_And_Adventure', 
+                            text: 'Уважаю человека, который берёт еду в засаду. Но следовало взять пирог с ветчиной и сыром, а не какие-то бутерброды. Несолидно.', 
+                            avatar: 'profile.png' },
+                        { 
+                            nickname: 'Witch_Of_The_Woods', 
+                            text: 'Кот говорящий, бабка исчезает, милиция приезжает. Обычный четверг. Приезжай в чащу — покажу, что такое настоящая нечисть.', 
+                            avatar: 'profile.png' },
+                        { 
+                            nickname: 'The_Boy_Who_Lived ', 
+                            text: 'Человек без магического образования пытается расследовать магический инцидент. Узнаю почерк. Дамблдор бы вами гордился. Или нет.', 
+                            avatar: 'profile.png' }
+                ]
+                },
+                { 
+                    id: 2,
+                    rubric: 'gastrogid',
+                    rubricRu: 'Гастрогид',
+                    image: 'blog2.png',
+                    imageAlt: 'Пряничный домик',  
+                    title: 'Второй завтрак в Пряничном домике', 
+                    author: 'Бильбо Бэггинс',
+                    text: 'Как хоббит с солидным гастрономическим стажем, я привык к шести трапезам в день. Но ничего не готовит вас к визиту в знаменитый Пряничный домик из Чащи. Делюсь впечатлениями и лайфхаками. <br>Адрес не указываю — его и так все знают, а владелица не любит гостей. Фасад из медовых пряников с леденцовыми окнами выглядит аппетитно, но предупреждаю: не пытайтесь отломить кусочек. Я всего лишь лизнул перила, и тут же изнутри раздалось: «Кто там грызёт мой дом?». Старушка, вышедшая на порог, оказалась не столько злой, сколько голодной. Мы разговорились за чаем с имбирным печеньем. Выяснилось, что домик — это приманка, а основное меню — заблудившиеся путники. Меня спасло то, что хоббиты слишком тощие для сытного ужина. Совет: если идёте — берите с собой корзинку пирожков, чтобы задобрить хозяйку. И ни в коем случае не лизните наличники.',
+                    tags:["Гастрогид", "Ведьмы", "Сладкое"],
+                    comments: [
+                        { 
+                            nickname: 'Always_1895 ', 
+                            text: 'Пряничный домик как бизнес-модель: заманить, накормить, переварить. Элегантно. Беру на вооружение.', 
+                            avatar: 'profile.png' 
+                        },
+                        { 
+                            nickname: 'Winter_Is_Here_Finally', 
+                            text: 'Мы в Винтерфелле едим проще: мясо, эль, хлеб. Но идея съедобного фасада интригует. Королеве Серсее бы такой — и драконы не нужны.', 
+                            avatar: 'profile.png' 
+                        },
+                        { 
+                            nickname: 'The_Boy_Who_Lived ', 
+                            text: 'Слушайте, я в Хогвартсе видел столы, которые ломятся от еды. Но целый дом из сладостей?! Даже у Дурслей такого не было. Иду собирать рюкзак.', 
+                            avatar: 'profile.png' 
+                        },
+                        { 
+                            nickname: 'Raven_Not_A_Crow ', 
+                            text: 'Стучится путник в дверь из пряников — только дверь, и больше ничего. И навеки там останется. Конец немного предсказуем, но атмосфера прекрасна.', 
+                            avatar: 'profile.png' 
+                        },
+                        { 
+                            nickname: 'Red_Haired_Muse', 
+                            text: 'Пряничный домик — это же буквально мечта! Но не лизнуть перила? Мсье Бэггинс, у вас железная выдержка. Я бы съела ставню, пока хозяйка не видит.', 
+                            avatar: 'profile.png' 
+                        },
+                        { 
+                            nickname: 'Annushka_Spilled_Oil ', 
+                            text: 'Пряники, леденцы... А у меня тут масло разлилось, так никто статью не написал. Никакой справедливости.', 
+                            avatar: 'profile.png' 
+                        }                            
+                    ] 
+                },
+                { 
+                    id: 3,
+                    rubric: 'route',
+                    rubricRu: 'Маршруты',
+                    image: 'blog3.png', 
+                    imageAlt: 'Путешествие', 
+                    title: 'Я повторила кругосветку за 72 дня', 
+                    author: 'Нелли Блай',
+                    text: 'Друзья, вы читали мою статью о мистере Фогге, который обогнул земной шар за 80 дней. Я решила проверить: можно ли быстрее? Спойлер: можно. <br>Стартовала из Нью-Йорка, а не из Лондона — феминистский апгрейд маршрута. В Суэце меня не арестовали, в Бомбее я съела лучший масала-доса в жизни, а в Иокогаме чуть не опоздала на пароход из-за рынка антиквариата. Вместо слона, как у Фогга, я арендовала велосипед. Вместо нападения сиу — потеряла паспорт в Небраске и нашла его в лобби отеля благодаря честному ковбою по имени Джед.<br>72 дня, 4 континента, 11 пар обуви и одно предложение руки и сердца от машиниста поезда «Калькутта — Дели». Я отказалась, но рецепт карри записала. Итог: мир маленький, люди добрые, а чай в Гонконге лучше, чем в Лондоне. Простите, мистер Фогг.',
+                    tags:["Путешествия", "Рекорд", "Еда"],
+                    comments: [
+                        { 
+                            nickname: 'Tea_And_Adventure', 
+                            text: '72 дня без нормальной кладовой — это подвиг. Нелли, респект. Но в следующий раз возьмите с собой пони. Он повезёт провизию.', 
+                            avatar: 'profile.png' 
+                        },
+                        { 
+                            nickname: 'Green_Light_Gatsby ', 
+                            text: 'Обожаю людей, которые ставят рекорды. Сам однажды пытался обогнать время. Правда, гнался не за поездом, а за женщиной. Итог тот же — разбитое сердце и отличный гардероб.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'Kafka_Morph', 
+                            text: 'Вы потеряли паспорт и нашли его через день? Я однажды потерял всё тело. И знаете — паспорт не понадобился.', 
+                            avatar: 'profile.png' 
+                        }       
+                    ] 
+                },
+                { 
+                    id:4,
+                    rubric: 'exclusive',
+                    rubricRu: 'Закулисье',
+                    image: 'blog4.png',
+                    imageAlt: 'Театр', 
+                    title: 'Я сидел в первом ряду, когда король вскочил', 
+                    author: 'Том Стоппард',
+                    text: 'Меня часто спрашивают: «Том, ты правда был на той премьере в Эльсиноре?» Да, был. И вот чего не попало в официальную рецензию.<br>Во-первых, принц Гамлет сидел не в ложе, а прямо на сцене, свесив ноги в оркестровую яму. Перед началом он громко спросил у Горацио: «Ты записываешь?» Тот кивнул и достал блокнот — видимо, для истории.<br>Во-вторых, актёр, игравший короля, реально трясся. Не от роли — от взгляда Клавдия. Монарх был бледен с первого акта, а к сцене с ядом его губы посинели натурально. Грим? Возможно. Но когда он вскочил и закричал: «Огня! Огня!» — даже охранники растерялись.<br>Самое странное случилось после. Я зашёл за кулисы взять комментарий у режиссёра и обнаружил, что исполнитель роли Полония исчез. Без вещей, без записки. Коллеги пожимали плечами: «Он за ширмой репетировал, а потом — тишина». Если вы читаете это, уважаемый Полоний, — свяжитесь с редакцией. Ваш гонорар всё ещё ждёт.',
+                    tags:["Закулисье", "Театр", "Эльсинор"],
+                    comments: [
+                        { 
+                            nickname: 'Sherlock_Induction ', 
+                            text: 'Полоний исчез за ширмой. Вы проверяли ковёр? Под ковром? За ковром? Советую вызвать ищеек.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'Тварь_Не_Дрожащая', 
+                            text: 'Ширма — опасное место. Сам однажды прятался за портьерой. Подслушивал. Закончилось плохо. Полонию не завидую.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'Yellow_Wallpaper_Jane', 
+                            text: 'Все говорят о Полонии, но никто не спросил про Офелию. Девушка была в зале? Ей нужна помощь. Срочно.', 
+                            avatar: 'profile.png' 
+                        }   
+                    ] 
+                },
+                { 
+                    id: 5,
+                    rubric: 'gastrogid',
+                    rubricRu: 'Гастрогид',
+                    image: 'blog5.png',
+                    imageAlt: 'Свадьба',  
+                    title: 'Ужин с вампирами: меню свадьбы Калленов', 
+                    author: 'Джоан Дидион',
+                    text: 'Меня пригласили на свадьбу века в Форксе. Как соцрепортёра, не как гостью. Но угощение я изучила досконально. Делюсь.<br>Стол был накрыт на сто персон, но гости со стороны жениха к еде не притронулись. Совсем. Они просто сидели с бокалами, в которых, как мне показалось, было не вино. Зато родственники невесты ели за всех. Меню: лосось на гриле, спаржа с голландским соусом, картофельный гратен и тыквенный суп с мускатным орехом. Торт трёхъярусный, белый шоколад с малиной. Невеста съела кусочек и расплакалась — возможно, гормоны, она в положении.<br>Главное открытие вечера — напиток «Кровавая Белла». Рецепт: клюквенный сок, гранатовый сироп, имбирь и мята. Подаётся в бокале для красного вина. Выглядит пугающе, вкус божественный. Отец невесты, Чарли, выпил четыре и пытался станцевать твист. Мать жениха, Эсме, смотрела на него с материнской нежностью.<br>Итог: свадьба скромная, но со вкусом. Единственное — не спрашивайте у Калленов рецепт стейка с кровью. Они его не готовят. Они его... не готовят.',
+                    tags:["Гастрогид", "Свадьба", "Форкс"],
+                    comments: [
+                        { 
+                            nickname: 'Begemot_Na_Sadovoy ', 
+                            text: 'Танцы, торт и ни одной драки! Скучная свадьба. Я бы добавил фейерверк из примуса. И поджёг бы шатёр.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'Annushka_Spilled_Oil', 
+                            text: 'Клюквенный сок — это хорошо. Но самогон из-под полы лучше. Спросите у Чарли, он явно добавил.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'Portrait_Not_Found', 
+                            text: 'елла выбрала вечность. Интересно, надоест ли ей муж через 200 лет? Мне лично — да.', 
+                            avatar: 'profile.png' 
+                        }   
+                    ] 
+                },
+                { 
+                    id: 6,
+                    rubric: 'route',
+                    rubricRu: 'Маршруты',
+                    image: 'blog6.png', 
+                    imageAlt: 'Дистрикт 12',
+                    title: 'Дистрикт 12: репортаж из места, где всё началось', 
+                    author: 'Марта Геллхорн',
+                    text: 'Когда редакция предложила поехать в Дистрикт 12, я думала — шутка. Там же одни угольные шахты и запустение. Но после падения Капитолия туда хлынули туристы. Я — первая из журналистов.<br>Добраться можно на поезде, билет стоит копейки. На въезде вас встречает табличка: «Добро пожаловать в Дистрикт 12. Здесь жила Сойка-пересмешница». Лаконично. Главная достопримечательность — дом Эвердин. Небольшой, деревянный, с покосившимся крыльцом. Внутри — музей: лук и колчан Китнисс, её свадебное платье, засушенные одуванчики. Экскурсию ведёт мать героини, миссис Эвердин. Говорит тихо, часто замолкает.<br>Сувенирный магазин продаёт значки с пересмешницей, вязаные шапки как у Прима и книгу рецептов Питы Мелларка. Я купила сырную булочку из пекарни Мелларков. Вкус — детство, надежда и немного муки грубого помола.<br>Туристы фотографируются у забора, где Китнисс впервые встретила Гейла. Никто не говорит о Голодных играх. Все говорят о весне, которая наступила после долгой зимы. Выезжала с комом в горле. Рекомендую.',
+                    tags:["Путешествия", "Панем", "История"],
+                    comments: [
+                        { 
+                            nickname: 'Winter_Is_Here_Finally', 
+                            text: 'Сувенирный магазин на пепелище. Странное зрелище. Но Винтерфелл тоже теперь продаёт магниты. Война заканчивается — туризм начинается.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'The_Boy_Who_Lived', 
+                            text: 'Сырные булочки Пита Мелларка — попробовать и умереть. Но сначала выжить на двух Голодных играх. Сильная рекомендация.', 
+                            avatar: 'profile.png' 
+                        }, 
+                        { 
+                            nickname: 'One_Ring_To_Rule', 
+                            text: 'Возвращаться домой после всего... Это самое трудное путешествие. Шир не понял. Дистрикт 12, кажется, тоже не до конца понимает.', 
+                            avatar: 'profile.png' 
+                        }    
+                    ] 
+                }
+            ];
+            const blogContainer = document.getElementById('blog-container');
+            const loadMoreButton = document.getElementById('load-more');
+            const BLOG_LIMIT_PAGE = 4;
+            let currentBlogPage = 1;
+            let activeFilter = 'all';
+            function drawBlog(filter = 'all', page = 1) {
+                let filterBlog = filter === 'all' ? [...blogArray] : blogArray.filter(item => item.rubric === filter);
+                const startIndex = 0;
+                const endIndex = page * BLOG_LIMIT_PAGE;
+                let vidimBlog = filterBlog.slice(startIndex, endIndex);
+                
+                blogContainer.innerHTML = '';
+                
+                if (vidimBlog.length === 0) {
+                    const p = blogContainer.createElement('p')
+                    p.textContent = 'Чемодан пока не распакован'
+                    p.cssText = 'text-align:center; color:rgb(75, 75, 75); padding:40px;'
+                    loadMoreButton.style.display = 'none';
+                    return;
+                }
+
+                vidimBlog.forEach((blog, index) => {
+                const card = document.createElement('div');
+                card.className = 'blog-card';
+                card.setAttribute('data-id', blog.id);
+
+                card.innerHTML = `
+                    <span class="blog-card-rubric>"${blog.rubricRu}</span>
+                    ${blog.image ? `
+                        <div class="blog-card-image">
+                            <img src="${blog.image}" alt="${blog.imageAlt || blog.title}"/>
+                        </div>` : ''}
+                    <h2 class="blog-card-title">${blog.title}</h2>
+                    <p class="blog-card-text">${blog.text}</p>
+                    <div class="blog-card-comment">
+                        <span class="blog-card-author">${blog.author}</span>
+                        <div class="blog-card-tags">
+                        ${blog.tags.map(item => `<span class="blog-card-tag">${item}</span>`).join('')}
+                        </div>
+                        <span class="blog-card-comments-count">📖 ${blog.comments.length}</span>
+                    </div>
+                    `;
+                card.addEventListener('click', function() {
+                    openOkno(blog);
+                });
+
+                blogContainer.appendChild(card);
+                });
+                if (filterBlog.length > endIndex) {
+                    loadMoreButton.style.display = 'block';
+                } else {
+                    loadMoreButton.style.display = 'none';
+                }
+            }
+            loadMoreButton.addEventListener('click', function() {
+                currentBlogPage++;
+                drawBlog(activeFilter, currentBlogPage);
+            });
+            document.querySelectorAll('[data-filter]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('[data-filter]').forEach(l => l.classList.remove('filter-glav'));
+                this.classList.add('filter-glav');
+                activeFilter = this.getAttribute('data-filter');
+                currentBlogPage = 1;
+                drawBlog(activeFilter, currentBlogPage);
+                });
+            });
+            const reklamaArray = [
+                { 
+                    id: 1, 
+                    title: 'СДАМ ЧУЛАН ПОД ЛЕСТНИЦЕЙ', 
+                    text: 'Уютное жильё в Тисовой улице, 4. Соседи — тихая семья Дурслей. Пауки включены.', 
+                    footer: 'Всего 5 сиклей в месяц.', 
+                    button: 'Забронировать' 
+                },
+                { 
+                    id: 2, 
+                    title: 'ПОРТРЕТ ВМЕСТО БОТОКСА', 
+                    text: 'Вечная молодость без уколов. Художник напишет портрет с особыми условиями хранения.', 
+                    footer: 'Бэзил Холлуорд. Лондон.', 
+                    button: 'Записаться' 
+                },
+                { 
+                    id: 3, 
+                    title: 'ТУР «ВОКРУГ СВЕТА ЗА 80 ДНЕЙ»', 
+                    text: 'Повтори маршрут Филеаса Фогга! Пароходы, поезда, слоны.', 
+                    footer: 'Реформ-клуб. Отправление каждый четверг.', 
+                    button: 'Купить билет' 
+                },
+                { 
+                    id: 4, 
+                    title: 'АДВОКАТ ДЛЯ ТЕХ, КТО «ПРАВО ИМЕЕТ»', 
+                    text: 'Специализация: явка с повинной, смягчающие обстоятельства.', 
+                    footer: 'Порфирий Петрович. Петербург.', 
+                    button: 'Консультация' 
+                },
+                { 
+                    id: 5, 
+                    title: 'ПЯТНА КРОВИ? ВЫЗОВИТЕ ЛЕДИ М.', 
+                    text: 'Безупречная чистота за одну ночь. Удаляем пятна с полов, стен и совести.', 
+                    footer: 'Леди Макбет. Звоните после полуночи.', 
+                    button: 'Вызвать уборку' 
+                },
+                { 
+                    id: 6, 
+                    title: 'КОЛЬЦА РУЧНОЙ РАБОТЫ', 
+                    text: 'Эксклюзивные золотые кольца из Мордора. Невидимость в подарок.', 
+                    footer: 'Кузница «Роковая гора». Только предзаказ.', 
+                    button: 'Заказать' 
+                },
+                { 
+                    id: 7, 
+                    title: 'ОЖИВЛЕНИЕ И ТРАНСПЛАНТАЦИЯ', 
+                    text: 'Доктор Виктор Ф. вернёт к жизни ваших близких. Собираем из частей.', 
+                    footer: 'Ингольштадт. Стучите трижды.', 
+                    button: 'На приём' 
+                },
+                { 
+                    id: 8, 
+                    title: 'СВАДЬБА С ВАМПИРОМ? ЛЕГКО!', 
+                    text: 'Церемония в лесу, на закате. Гости со стороны жениха не едят.', 
+                    footer: 'Агентство «Вечная любовь». Форкс.', 
+                    button: 'Оставить заявку' 
+                },
+                { 
+                    id: 9, 
+                    title: 'ГОВОРЯЩИЙ КОТ В АРЕНДУ', 
+                    text: 'Разумный, наглый, с чувством юмора. Чинит примус. Заказывает такси.', 
+                    footer: 'Бегемот. Садовая, 50. Мяу.', 
+                    button: 'Арендовать' 
+                },
+                { 
+                    id: 10, 
+                    title: 'ТРЕХГОЛОВЫЙ ПЁС НА СТРАЖЕ', 
+                    text: 'Цербер — надёжная охрана. Не спит. Не ест взяток. Выгул не требуется.', 
+                    footer: 'Аид и Партнёры. Подземное царство.', 
+                    button: 'Нанять' 
+                },
+                { 
+                    id: 11, 
+                    title: 'ТРЕНИРОВКИ С КИТНИСС', 
+                    text: 'Стрельба из лука, маскировка, выживание. Подготовка к Голодным играм.', 
+                    footer: 'Дистрикт 12. Запись через Пита.', 
+                    button: 'Тренироваться' 
+                },
+                { 
+                    id: 12, 
+                    title: 'ПЕРСОНАЖ ИЩЕТ АВТОРА', 
+                    text: 'Застряли в сюжете? Не можете найти концовку? Поможем.', 
+                    footer: 'Бюро «Шесть персонажей». Круглосуточно.', 
+                    button: 'Найти автора' 
+                }
+            ];
+            const rekContainer = document.getElementById('rek-container');
+            function drawReklama() {
+                const randomRek = [...reklamaArray].sort(() => Math.random() - 0.5);
+                const currentRek = randomRek.slice(0, BLOG_LIMIT_PAGE);
+                
+                rekContainer.innerHTML = '';
+                
+                currentRek.forEach((item, index) => {
+                    const rekBlock = document.createElement('div');
+                    rekBlock.className = 'rek-block';
+                    rekBlock.innerHTML = `
+                        <div class="rek-block-name">Реклама</div>
+                        <h3 class="rek-block-title">${item.title}</h3>
+                        <p class="rek-block-text">${item.text}</p>
+                        <p class="rek-block-footer">${item.footer}</p>
+                        <button class="rek-block-button">${item.button}</button>
+                    `;
+                    rekContainer.appendChild(rekBlock);
+                });
+            }
+
+            const oknoContainer = document.getElementById('okno-container');
+            const oknoContent = document.getElementById('okno-content');
+            const oknoComment = document.getElementById('okno-comment');
+            const oknoClose = document.getElementById('okno-close');
+
+            function openOkno(blog) {
+                oknoContent.innerHTML = `
+                    <span class="okno-rubric ${blog.rubric}">${blog.rubricRu}</span>
+                    <h2 class="okno-title">${blog.title}</h2>
+                    <p class="okno-author">${blog.author}</p>
+                    ${blog.image ? `
+                        <div class="okno-image">
+                        <img src="${blog.image}" alt="${blog.imageAlt || blog.title}">
+                        </div>
+                    ` : ''}
+                    <div class="okno-body"><p>${blog.text}</p></div>
+                    `;
+                oknoComment.innerHTML = `
+                    <h3 class="okno-comment-header">Комментарии (${blog.comments.length})</h3>
+                    ${blog.comments.map(item => `
+                        <div class="comment">
+                            <div class="comment-avatar"><img src="${item.avatar}"/></div>
+                            <div class="comment-body">
+                                <div class="comment-nickname">${item.nickname}</div>
+                                <div class="comment-text">${item.text}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    
+                    <div class="comment-form">
+                        <div class="comment-form-start">
+                            <div class="comment-form-avatar"><img src="profile.png"/></div>
+                            <div class="comment-form-nickname">Посетитель</div>
+                        </div>
+                        <div class="comment-form-input-container">
+                            <input 
+                                type="text" 
+                                class="comment-form-input" 
+                                id="comment-input" 
+                                placeholder="Напишите комментарий..."
+                            >
+                            <button class="comment-form-button" id="comment-button">
+                                Отправить
+                            </button>
+                        </div>
+                    </div>
+                `;
+                const commentInput = document.getElementById('comment-input');
+                const commentButton = document.getElementById('comment-button');
+                function dobavComment() {
+                    const text = commentInput.value.trim();
+                    if (!text) {
+                        commentInput.placeholder = 'Напишите хоть что-нибудь!';
+                        commentInput.style.borderColor = 'rgb(253, 105, 105)';
+                        return;
+                    }
+                    const newComment = {
+                        nickname: 'Посетитель',
+                        text: text
+                    };
+                    blog.comments.push(newComment);
+                    const commentElement = document.createElement('div');
+                    commentElement.className = 'comment';
+                    commentElement.innerHTML = `
+                        <div class="comment-avatar"><img src="profile.png"/></div>
+                        <div class="comment-body">
+                            <div class="comment-nickname">Посетитель</div>
+                            <div class="comment-text">${text}</div>
+                        </div>
+                    `;
+                    const commentForm = document.querySelector('.comment-form');
+                    commentForm.parentNode.insertBefore(commentElement, commentForm);
+
+                    const headerCount = document.querySelector('.okno-comment-header');
+                    headerCount.textContent = `Комментарии (${blog.comments.length})`;
+                    commentInput.value = '';
+                    commentInput.focus();
+                    
+                }
+                commentButton.addEventListener('click', dobavComment);
+                oknoContainer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeOkno() {
+                oknoContainer.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            oknoClose.addEventListener('click', closeOkno);
+            oknoContainer.addEventListener('click', function(e) {
+                if (e.target === oknoContainer) closeOkno();
+            });
+            drawBlog();
+            drawReklama();
+
+            // горячие клавишы
+            const bigContainer = document.getElementById('big-container')
+            const emailLabel = document.getElementById('email')
+            emailLabel.addEventListener('keydown', function(event){
+                if(event.code === 'Enter'){
+                    event.preventDefault();
+                    const email = emailLabel.value.trim();
+                    if(email === ''){
+                        alret('Пожалуйста, введите ваш email');
+                        return;
+                    }
+                    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+                        alert('Кажется, email введён некорректно. Проверьте, пожалуйста.');
+                        return;
+                    }
+                    alert('Спасибо! Мы с вами свяжемся.')
+                    emailLabel.value = '';
+                }
+            })
+
+            const highlight = document.createElement('div');
+            highlight.className = 'mouse-highlight';
+            document.body.appendChild(highlight);
+            let currentElement = null;
+            let highlightIndex = -1;
+            let allCards = [];
+            function refreshCards() {
+                allCards = document.querySelectorAll('.blog-card');
+            }
+            refreshCards();
+            
+            document.addEventListener('mousemove', function(event) {
+                const element = document.elementFromPoint(event.clientX, event.clientY);
+                let card = element;
+                while (card && !card.classList.contains('blog-card')) {
+                    card = card.parentElement;
+                }
+                if (card) {
+                    highlightCard(card);
+                }
+            });
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.tagName === 'SELECT') {
+                    return;
+                }
+                refreshCards();
+                
+                if (allCards.length === 0) return;
+                
+                if (highlightIndex < 0 || highlightIndex >= allCards.length) {
+                    highlightIndex = 0;
+                }
+                
+                if (event.code === 'KeyS') {
+                    event.preventDefault();
+                    highlightIndex = (highlightIndex + 1) % allCards.length;
+                    highlightCard(allCards[highlightIndex], true);
+                    return;
+                }
+                
+                if (event.code === 'KeyW') {
+                    event.preventDefault();
+                    highlightIndex = highlightIndex <= 0 ? allCards.length - 1 : highlightIndex - 1;
+                    highlightCard(allCards[highlightIndex], true);
+                    return;
+                }
+                
+                if (event.code === 'Tab') {
+                    event.preventDefault();
+                    const card = allCards[highlightIndex];
+                    const blogId = parseInt(card.getAttribute('data-id'));
+                    const blog = blogArray.find(item => item.id === blogId);
+                
+                if (blog) {
+                    openOkno(blog);
+                }
+                    return;
+                }
+                if (event.code === 'Escape') {
+                    event.preventDefault();
+                    closeOkno();
+                    return;
+                }
+                if (event.code === 'KeyF') {
+                    event.preventDefault();
+                    if (loadMoreButton && loadMoreButton.style.display !== 'none'){
+                        loadMoreButton.click();
+                    }
+                    return;
+                }
+            });
+            
+            function highlightCard(card) {
+                if (card === currentElement) return;
+                currentElement = card;
+                const rect = card.getBoundingClientRect();
+                
+                highlight.style.left = rect.left + 'px';
+                highlight.style.top = rect.top + 'px';
+                highlight.style.width = rect.width + 'px';
+                highlight.style.height = rect.height + 'px';
+                
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                highlightIndex = Array.from(allCards).indexOf(card);
+            }
+        });    
+            // шапка
+            const container1 = document.getElementById('container1')
+            const news = document.getElementById('news')
+            news.addEventListener('click', function(e) {
+            e.stopPropagation()            
+            const listnews = document.createElement('div')
+            listnews.id = 'news-dropdown'
+            listnews.style.cssText = `
+                position: absolute;
+                top: 100%;
+                left: -30px;
+                background: white;
+                border: 3px solid rgb(18, 58, 38);
+                border-radius: 20px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                z-index: 100;
+                min-width: 200px;
+                font-family: 'Courier New', Courier, monospace;
+            `
+            const items = [
+                { text: 'Криминал' },
+                { text: 'Светская хроника' },
+                { text: 'Наука' },
+                { text: 'Бизнес' },
+                { text: 'Спорт' },
+                { text: 'Политика' },
+                { text: 'Общество' },
+                { text: 'Культура' },
+            ]
+            items.forEach(item => {
+                const p = document.createElement('p')
+                p.textContent = item.text
+                p.style.cssText = `
+                    cursor: pointer;
+                    padding: 8px 10px;
+                    margin: 5px 0;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                    color: black;
+                `
+                p.addEventListener('mouseover', () => {
+                    p.style.background = 'rgb(1, 244, 123)'
+                    p.style.color = 'white'
+                })
+                p.addEventListener('mouseout', () => {
+                    p.style.background = 'transparent'
+                    p.style.color = 'black'
+                })
+                p.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                })
+                listnews.appendChild(p)
+            })
+            news.style.position = 'relative'
+            news.appendChild(listnews)
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!listnews.contains(e.target) && e.target !== news) {
+                    listnews.remove()
+                    document.removeEventListener('click', closeDropdown)
+                }
+            })
+        })
+        const blog = document.getElementById('blog')
+        blog.addEventListener('click', function(e) {
+            e.stopPropagation()            
+            const listblog = document.createElement('div')
+            listblog.id = 'blog-dropdown'
+            listblog.style.cssText = `
+                position: absolute;
+                top: 100%;
+                left: -30px;
+                background: white;
+                border: 3px solid rgb(18, 58, 38);
+                border-radius: 20px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                z-index: 100;
+                min-width: 200px;
+                font-family: 'Courier New', Courier, monospace;
+            `
+            const items = [
+                { text: 'Маршруты' },
+                { text: 'Закулисье' },
+                { text: 'Гастрогид' }
+            ]
+            items.forEach(item => {
+                const p = document.createElement('p')
+                p.textContent = item.text
+                p.style.cssText = `
+                    cursor: pointer;
+                    padding: 8px 10px;
+                    margin: 5px 0;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                    color: black;
+                `
+                p.addEventListener('mouseover', () => {
+                    p.style.background = 'rgb(1, 244, 123)'
+                    p.style.color = 'white'
+                })
+                p.addEventListener('mouseout', () => {
+                    p.style.background = 'transparent'
+                    p.style.color = 'black'
+                })
+                p.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                })
+                listblog.appendChild(p)
+            })
+            blog.style.position = 'relative'
+            blog.appendChild(listblog)
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!listblog.contains(e.target) && e.target !== blog) {
+                    listblog.remove()
+                    document.removeEventListener('click', closeDropdown)
+                }
+            })
+        })
+        const author = document.getElementById('author')
+        author.addEventListener('click', function(e) {
+            e.stopPropagation()            
+            const listauthor = document.createElement('div')
+            listauthor.id = 'author-dropdown'
+            listauthor.style.cssText = `
+                position: absolute;
+                top: 100%;
+                left: -30px;
+                background: white;
+                border: 3px solid rgb(18, 58, 38);
+                border-radius: 20px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                z-index: 100;
+                min-width: 200px;
+                font-family: 'Courier New', Courier, monospace;
+            `
+            const items = [
+                { text: 'Иван Бездомный' },
+                { text: 'Нелли Блай' },
+                { text: 'Марта Геллхорн' },
+                { text: 'Том Стоппард' },
+                { text: 'Джоан Дидион' }
+            ]
+            items.forEach(item => {
+                const p = document.createElement('p')
+                p.textContent = item.text
+                p.style.cssText = `
+                    cursor: pointer;
+                    padding: 8px 10px;
+                    margin: 5px 0;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                    color: black;
+                `
+                p.addEventListener('mouseover', () => {
+                    p.style.background = 'rgb(1, 244, 123)'
+                    p.style.color = 'white'
+                })
+                p.addEventListener('mouseout', () => {
+                    p.style.background = 'transparent'
+                    p.style.color = 'black'
+                })
+                p.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                })
+                listauthor.appendChild(p)
+            })
+            author.style.position = 'relative'
+            author.appendChild(listauthor)
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!listauthor.contains(e.target) && e.target !== author) {
+                    listauthor.remove()
+                    document.removeEventListener('click', closeDropdown)
+                }
+            })
+        })
+        const profile = document.getElementById('profile')
+        profile.addEventListener('click', function(e) {
+            e.stopPropagation()            
+            const listprofile = document.createElement('div')
+            listprofile.id = 'profile-dropdown'
+            listprofile.style.cssText = `
+                position: absolute;
+                top: 100%;
+                left: -30px;
+                background: white;
+                border: 3px solid rgb(18, 58, 38);
+                border-radius: 20px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                z-index: 100;
+                min-width: 200px;
+                font-family: 'Courier New', Courier, monospace;
+            `
+            const items = [
+                { text: 'Войти' },
+                { text: 'Регистрация' },
+                { text: 'Настройки' },
+                { text: 'Мы в других соцсетях' }
+            ]
+            items.forEach(item => {
+                const p = document.createElement('p')
+                p.textContent = item.text
+                p.style.cssText = `
+                    cursor: pointer;
+                    padding: 8px 10px;
+                    margin: 5px 0;
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                    color: black;
+                `
+                p.addEventListener('mouseover', () => {
+                    p.style.background = 'rgb(1, 244, 123)'
+                    p.style.color = 'white'
+                })
+                p.addEventListener('mouseout', () => {
+                    p.style.background = 'transparent'
+                    p.style.color = 'black'
+                })
+                p.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                })
+                listprofile.appendChild(p)
+            })
+            profile.style.position = 'relative'
+            profile.appendChild(listprofile)
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!listprofile.contains(e.target) && e.target !== profile) {
+                    listprofile.remove()
+                    document.removeEventListener('click', closeDropdown)
+                }
+            })
+        })
+    </script>
+</body>
+</html>
